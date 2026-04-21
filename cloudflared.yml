@@ -1,0 +1,22 @@
+# 🦞 龔蝦米 Cloudflare Tunnel 設定
+# 執行：cloudflared tunnel --config cloudflared.yml run lobster-tunnel
+
+tunnel: lobster-tunnel
+credentials-file: /home/logyd/.cloudflared/lobster-tunnel.json
+
+ingress:
+  # 將 Python 後端服務公開
+  - hostname: upload.lobster.yourdomain.com  # 替換為你的網域
+    service: http://localhost:8890
+    originRequest:
+      httpHostHeader: upload.lobster.yourdomain.com
+      noTLSVerify: true
+  
+  # 靜態網站（備用）
+  - hostname: static.lobster.yourdomain.com
+    service: http://localhost:8890
+    originRequest:
+      httpHostHeader: static.lobster.yourdomain.com
+  
+  # 預設規則（必須放在最後）
+  - service: http_status:404

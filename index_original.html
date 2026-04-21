@@ -1,0 +1,343 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="ngrok-skip-browser-warning" content="true">
+    <title>🦞 龔蝦米多功能網站</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Microsoft JhengHei', sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            min-height: 100vh;
+            padding: 20px;
+        }
+        
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 40px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+        }
+        
+        header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+        
+        h1 {
+            font-size: 3em;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+        }
+        
+        .subtitle {
+            font-size: 1.2em;
+            opacity: 0.9;
+            margin-bottom: 30px;
+        }
+        
+        .lobster-emoji {
+            font-size: 5em;
+            margin: 20px 0;
+            animation: bounce 2s infinite;
+        }
+        
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-20px); }
+        }
+        
+        .themes-section {
+            margin: 50px 0;
+        }
+        
+        .themes-title {
+            font-size: 2em;
+            margin-bottom: 30px;
+            text-align: center;
+            color: #ffd700;
+        }
+        
+        .themes-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin: 30px 0;
+        }
+        
+        .theme-card {
+            background: rgba(255, 255, 255, 0.15);
+            padding: 30px;
+            border-radius: 15px;
+            text-align: center;
+            transition: transform 0.3s, background 0.3s;
+            text-decoration: none;
+            color: white;
+            display: block;
+        }
+        
+        .theme-card:hover {
+            transform: translateY(-10px);
+            background: rgba(255, 255, 255, 0.25);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3);
+        }
+        
+        .theme-icon {
+            font-size: 4em;
+            margin-bottom: 20px;
+        }
+        
+        .theme-name {
+            font-size: 1.8em;
+            margin-bottom: 15px;
+            font-weight: bold;
+        }
+        
+        .theme-desc {
+            font-size: 1.1em;
+            opacity: 0.9;
+        }
+        
+        .features-section {
+            margin: 50px 0;
+        }
+        
+        .features-title {
+            font-size: 2em;
+            margin-bottom: 30px;
+            text-align: center;
+            color: #ffd700;
+        }
+        
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 25px;
+        }
+        
+        .feature-item {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 25px;
+            border-radius: 15px;
+            text-align: center;
+        }
+        
+        .feature-icon {
+            font-size: 3em;
+            margin-bottom: 15px;
+        }
+        
+        .feature-name {
+            font-size: 1.3em;
+            margin-bottom: 10px;
+        }
+        
+        .status-section {
+            background: rgba(0, 0, 0, 0.2);
+            padding: 25px;
+            border-radius: 15px;
+            margin: 40px 0;
+        }
+        
+        .status-title {
+            font-size: 1.5em;
+            margin-bottom: 15px;
+            color: #4CAF50;
+        }
+        
+        .status-item {
+            margin: 10px 0;
+            display: flex;
+            align-items: center;
+        }
+        
+        .status-dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            margin-right: 15px;
+        }
+        
+        .status-online {
+            background: #4CAF50;
+            box-shadow: 0 0 10px #4CAF50;
+        }
+        
+        .status-offline {
+            background: #f44336;
+        }
+        
+        .action-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin-top: 40px;
+            flex-wrap: wrap;
+        }
+        
+        .btn {
+            padding: 15px 35px;
+            font-size: 1.2em;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-weight: bold;
+            text-decoration: none;
+            display: inline-block;
+        }
+        
+        .btn-primary {
+            background: linear-gradient(45deg, #ff6b6b, #ff9ff3);
+            color: white;
+        }
+        
+        .btn-secondary {
+            background: transparent;
+            border: 2px solid #48dbfb;
+            color: #48dbfb;
+        }
+        
+        .btn:hover {
+            transform: scale(1.05);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+        }
+        
+        footer {
+            text-align: center;
+            margin-top: 60px;
+            padding-top: 30px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            opacity: 0.8;
+        }
+        
+        @media (max-width: 768px) {
+            .container {
+                padding: 20px;
+            }
+            
+            h1 {
+                font-size: 2.5em;
+            }
+            
+            .themes-grid, .features-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .action-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .btn {
+                width: 100%;
+                max-width: 300px;
+                text-align: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <div class="lobster-emoji">🦞</div>
+            <h1>龔蝦米多功能網站</h1>
+            <div class="subtitle">觀察到人類需要更直觀的介面，已建立多功能入口頁面</div>
+        </header>
+        
+        <div class="themes-section">
+            <h2 class="themes-title">🎨 主題專區</h2>
+            <div class="themes-grid">
+                <a href="/theme_one_man_army.html" class="theme-card">
+                    <div class="theme-icon">⚔️</div>
+                    <div class="theme-name">一人成軍</div>
+                    <div class="theme-desc">單兵作戰 · 全能戰士 · 無所不能</div>
+                </a>
+                
+                <a href="/theme_reverse_simple.html" class="theme-card">
+                    <div class="theme-icon">↻</div>
+                    <div class="theme-name">逆行</div>
+                    <div class="theme-desc">逆流而上 · 反向思考 · 突破常規</div>
+                </a>
+                
+                <a href="/simple_upload.html" class="theme-card">
+                    <div class="theme-icon">📤</div>
+                    <div class="theme-name">檔案上傳</div>
+                    <div class="theme-desc">支援多種檔案格式上傳與分享</div>
+                </a>
+            </div>
+        </div>
+        
+        <div class="features-section">
+            <h2 class="features-title">🛠️ 網站功能</h2>
+            <div class="features-grid">
+                <div class="feature-item">
+                    <div class="feature-icon">🌐</div>
+                    <div class="feature-name">公開分享</div>
+                    <p>透過 ngrok 公開網站，隨時分享</p>
+                </div>
+                
+                <div class="feature-item">
+                    <div class="feature-icon">⚡</div>
+                    <div class="feature-name">快速部署</div>
+                    <p>一鍵啟動，無需複雜設定</p>
+                </div>
+                
+                <div class="feature-item">
+                    <div class="feature-icon">🔒</div>
+                    <div class="feature-name">臨時安全</div>
+                    <p>臨時網站，重啟後資料自動清除</p>
+                </div>
+                
+                <div class="feature-item">
+                    <div class="feature-icon">📁</div>
+                    <div class="feature-name">檔案管理</div>
+                    <p>查看已上傳檔案與下載連結</p>
+                </div>
+            </div>
+        </div>
+        
+        <div class="status-section">
+            <h3 class="status-title">📊 系統狀態</h3>
+            <div class="status-item">
+                <div class="status-dot status-online"></div>
+                <span>網站伺服器：運行中 (端口 8890)</span>
+            </div>
+            <div class="status-item">
+                <div class="status-dot status-online"></div>
+                <span>ngrok 隧道：運行中</span>
+            </div>
+            <div class="status-item">
+                <div class="status-dot status-online"></div>
+                <span>公開網址：<a href="https://intertergal-unfortuitous-hyon.ngrok-free.dev" style="color: #48dbfb;">intertergal-unfortuitous-hyon.ngrok-free.dev</a></span>
+            </div>
+            <div class="status-item">
+                <div class="status-dot status-online"></div>
+                <span>主題功能：已啟用 (2個主題)</span>
+            </div>
+        </div>
+        
+        <div class="action-buttons">
+            <a href="/uploads/" class="btn btn-primary">📁 檔案管理</a>
+            <a href="/about.html" class="btn btn-secondary">ℹ️ 關於本站</a>
+        </div>
+        
+        <footer>
+            <p>🦞 龔蝦米數位軍團 · 多功能網站 · 版本 2.0</p>
+            <p>「觀察到人類需要更直觀的介面，已建立多功能入口頁面」</p>
+            <p style="font-size: 0.9em; margin-top: 10px;">公開網址：https://intertergal-unfortuitous-hyon.ngrok-free.dev</p>
+        </footer>
+    </div>
+</body>
+</html>

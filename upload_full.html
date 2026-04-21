@@ -1,0 +1,544 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🦞 龔蝦米檔案上傳站</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Microsoft JhengHei', sans-serif;
+            background: linear-gradient(135deg, #1a2980 0%, #26d0ce 100%);
+            color: white;
+            min-height: 100vh;
+            padding: 20px;
+        }
+        
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 40px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+        }
+        
+        header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+        
+        h1 {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+        }
+        
+        .subtitle {
+            font-size: 1.2em;
+            opacity: 0.9;
+            margin-bottom: 30px;
+        }
+        
+        .lobster-emoji {
+            font-size: 4em;
+            margin: 20px 0;
+        }
+        
+        .section {
+            margin-bottom: 30px;
+            padding: 25px;
+            background: rgba(255, 255, 255, 0.15);
+            border-radius: 15px;
+        }
+        
+        h2 {
+            color: #ffd700;
+            margin-bottom: 20px;
+            border-bottom: 2px solid rgba(255, 255, 255, 0.3);
+            padding-bottom: 10px;
+        }
+        
+        .upload-area {
+            border: 3px dashed rgba(255, 255, 255, 0.5);
+            border-radius: 15px;
+            padding: 40px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s;
+            margin-bottom: 20px;
+        }
+        
+        .upload-area:hover {
+            border-color: #ffd700;
+            background: rgba(255, 255, 255, 0.1);
+        }
+        
+        .upload-area.dragover {
+            border-color: #4CAF50;
+            background: rgba(76, 175, 80, 0.1);
+        }
+        
+        .upload-icon {
+            font-size: 3em;
+            margin-bottom: 15px;
+        }
+        
+        .file-input {
+            display: none;
+        }
+        
+        .upload-btn {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            border-radius: 10px;
+            font-size: 1.1em;
+            cursor: pointer;
+            transition: transform 0.3s;
+            margin-top: 20px;
+        }
+        
+        .upload-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+        }
+        
+        .upload-btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+            transform: none;
+        }
+        
+        .file-list {
+            margin-top: 20px;
+            max-height: 300px;
+            overflow-y: auto;
+        }
+        
+        .file-item {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 15px;
+            border-radius: 10px;
+            margin-bottom: 10px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .file-info {
+            flex: 1;
+        }
+        
+        .file-name {
+            font-weight: bold;
+            margin-bottom: 5px;
+            word-break: break-all;
+        }
+        
+        .file-size {
+            font-size: 0.9em;
+            opacity: 0.8;
+        }
+        
+        .file-actions {
+            display: flex;
+            gap: 10px;
+        }
+        
+        .action-btn {
+            background: rgba(255, 255, 255, 0.2);
+            color: white;
+            border: none;
+            padding: 8px 15px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background 0.3s;
+            text-decoration: none;
+            font-size: 0.9em;
+        }
+        
+        .action-btn:hover {
+            background: rgba(255, 255, 255, 0.3);
+        }
+        
+        .copy-btn {
+            background: rgba(76, 175, 80, 0.3);
+        }
+        
+        .copy-btn:hover {
+            background: rgba(76, 175, 80, 0.5);
+        }
+        
+        .status {
+            text-align: center;
+            margin-top: 20px;
+            padding: 15px;
+            border-radius: 10px;
+            display: none;
+        }
+        
+        .status.success {
+            background: rgba(76, 175, 80, 0.2);
+            border: 2px solid rgba(76, 175, 80, 0.5);
+            display: block;
+        }
+        
+        .status.error {
+            background: rgba(244, 67, 54, 0.2);
+            border: 2px solid rgba(244, 67, 54, 0.5);
+            display: block;
+        }
+        
+        .url-display {
+            background: rgba(0, 0, 0, 0.3);
+            padding: 15px;
+            border-radius: 10px;
+            margin-top: 20px;
+            font-family: monospace;
+            word-break: break-all;
+            display: none;
+        }
+        
+        .url-display.show {
+            display: block;
+        }
+        
+        .progress-bar {
+            width: 100%;
+            height: 10px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 5px;
+            margin-top: 10px;
+            overflow: hidden;
+            display: none;
+        }
+        
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #667eea, #764ba2);
+            width: 0%;
+            transition: width 0.3s;
+        }
+        
+        footer {
+            text-align: center;
+            margin-top: 40px;
+            opacity: 0.8;
+            font-size: 0.9em;
+        }
+        
+        .warning {
+            color: #ffd700;
+            background: rgba(255, 215, 0, 0.1);
+            padding: 15px;
+            border-radius: 10px;
+            margin-top: 20px;
+            font-size: 0.9em;
+        }
+        
+        @media (max-width: 600px) {
+            .container {
+                padding: 20px;
+            }
+            
+            h1 {
+                font-size: 2em;
+            }
+            
+            .file-item {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+            
+            .file-actions {
+                margin-top: 10px;
+                width: 100%;
+                justify-content: flex-end;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <div class="lobster-emoji">🦞</div>
+            <h1>龔蝦米檔案上傳站</h1>
+            <p class="subtitle">透過 ngrok 快速分享檔案 · 臨時檔案傳輸</p>
+        </header>
+        
+        <div class="section">
+            <h2>📤 檔案上傳</h2>
+            <div class="upload-area" id="uploadArea">
+                <div class="upload-icon">📁</div>
+                <p>拖放檔案到這裡，或點擊選擇檔案</p>
+                <p style="opacity: 0.7; margin-top: 10px; font-size: 0.9em;">
+                    支援圖片、文件、壓縮檔等 (最大 10MB)
+                </p>
+                <input type="file" id="fileInput" class="file-input" multiple>
+            </div>
+            
+            <div class="progress-bar" id="progressBar">
+                <div class="progress-fill" id="progressFill"></div>
+            </div>
+            
+            <button class="upload-btn" id="uploadBtn" disabled>開始上傳</button>
+            
+            <div class="status" id="statusMessage"></div>
+            
+            <div class="url-display" id="urlDisplay">
+                <strong>檔案連結：</strong><br>
+                <span id="fileUrl"></span><br>
+                <button class="action-btn copy-btn" onclick="copyUrl()">複製連結</button>
+            </div>
+        </div>
+        
+        <div class="section">
+            <h2>📁 已上傳檔案</h2>
+            <div class="file-list" id="fileList">
+                <p style="text-align: center; opacity: 0.7; padding: 20px;">
+                    尚未上傳任何檔案
+                </p>
+            </div>
+        </div>
+        
+        <div class="warning">
+            <p>⚠️ 安全提醒：</p>
+            <ul style="margin-left: 20px; margin-top: 10px;">
+                <li>此為臨時網站，檔案可能不會永久保存</li>
+                <li>請勿上傳敏感或私人檔案</li>
+                <li>檔案大小限制：10MB</li>
+                <li>ngrok 重啟後連結可能失效</li>
+            </ul>
+        </div>
+        
+        <div class="section">
+            <h2>🔗 如何使用</h2>
+            <ol style="margin-left: 20px; line-height: 1.8;">
+                <li>選擇或拖放要上傳的檔案</li>
+                <li>點擊「開始上傳」按鈕</li>
+                <li>上傳完成後會顯示檔案連結</li>
+                <li>複製連結分享給他人</li>
+                <li>他人點擊連結即可下載檔案</li>
+            </ol>
+        </div>
+        
+        <footer>
+            <p>🦞 龔蝦米檔案分享系統 · 建立時間: <span id="current-time"></span></p>
+            <p style="margin-top: 10px;">
+                <a href="/" class="action-btn">返回首頁</a>
+            </p>
+        </footer>
+    </div>
+    
+    <script>
+        // 顯示當前時間
+        function updateTime() {
+            const now = new Date();
+            const options = { 
+                year: 'numeric', 
+                month: 'long', 
+                day: 'numeric',
+                hour: '2-digit',
+                minute: '2-digit',
+                second: '2-digit',
+                timeZone: 'Asia/Taipei'
+            };
+            document.getElementById('current-time').textContent = 
+                now.toLocaleDateString('zh-TW', options);
+        }
+        
+        updateTime();
+        setInterval(updateTime, 1000);
+        
+        // DOM 元素
+        const uploadArea = document.getElementById('uploadArea');
+        const fileInput = document.getElementById('fileInput');
+        const uploadBtn = document.getElementById('uploadBtn');
+        const progressBar = document.getElementById('progressBar');
+        const progressFill = document.getElementById('progressFill');
+        const statusMessage = document.getElementById('statusMessage');
+        const urlDisplay = document.getElementById('urlDisplay');
+        const fileUrl = document.getElementById('fileUrl');
+        const fileList = document.getElementById('fileList');
+        
+        let selectedFiles = [];
+        
+        // 點擊上傳區域觸發檔案選擇
+        uploadArea.addEventListener('click', () => {
+            fileInput.click();
+        });
+        
+        // 檔案選擇變化
+        fileInput.addEventListener('change', (e) => {
+            selectedFiles = Array.from(e.target.files);
+            updateFileList();
+            uploadBtn.disabled = selectedFiles.length === 0;
+        });
+        
+        // 拖放功能
+        uploadArea.addEventListener('dragover', (e) => {
+            e.preventDefault();
+            uploadArea.classList.add('dragover');
+        });
+        
+        uploadArea.addEventListener('dragleave', () => {
+            uploadArea.classList.remove('dragover');
+        });
+        
+        uploadArea.addEventListener('drop', (e) => {
+            e.preventDefault();
+            uploadArea.classList.remove('dragover');
+            selectedFiles = Array.from(e.dataTransfer.files);
+            fileInput.files = e.dataTransfer.files;
+            updateFileList();
+            uploadBtn.disabled = selectedFiles.length === 0;
+        });
+        
+        // 更新檔案列表顯示
+        function updateFileList() {
+            if (selectedFiles.length === 0) {
+                fileList.innerHTML = '<p style="text-align: center; opacity: 0.7; padding: 20px;">尚未選擇任何檔案</p>';
+                return;
+            }
+            
+            let html = '';
+            selectedFiles.forEach((file, index) => {
+                const size = formatFileSize(file.size);
+                html += `
+                    <div class="file-item">
+                        <div class="file-info">
+                            <div class="file-name">${file.name}</div>
+                            <div class="file-size">${size}</div>
+                        </div>
+                        <div class="file-actions">
+                            <button class="action-btn" onclick="removeFile(${index})">移除</button>
+                        </div>
+                    </div>
+                `;
+            });
+            fileList.innerHTML = html;
+        }
+        
+        // 移除檔案
+        window.removeFile = function(index) {
+            selectedFiles.splice(index, 1);
+            
+            // 更新 input 的檔案列表
+            const dataTransfer = new DataTransfer();
+            selectedFiles.forEach(file => dataTransfer.items.add(file));
+            fileInput.files = dataTransfer.files;
+            
+            updateFileList();
+            uploadBtn.disabled = selectedFiles.length === 0;
+        };
+        
+        // 格式化檔案大小
+        function formatFileSize(bytes) {
+            if (bytes === 0) return '0 Bytes';
+            const k = 1024;
+            const sizes = ['Bytes', 'KB', 'MB', 'GB'];
+            const i = Math.floor(Math.log(bytes) / Math.log(k));
+            return parseFloat((bytes / Math.pow(k, i)).toFixed(2)) + ' ' + sizes[i];
+        }
+        
+        // 上傳檔案
+        uploadBtn.addEventListener('click', async () => {
+            if (selectedFiles.length === 0) return;
+            
+            // 檢查檔案大小限制 (10MB)
+            const maxSize = 10 * 1024 * 1024; // 10MB in bytes
+            for (const file of selectedFiles) {
+                if (file.size > maxSize) {
+                    showStatus(`檔案 "${file.name}" 超過 10MB 限制`, 'error');
+                    return;
+                }
+            }
+            
+            // 顯示進度條
+            progressBar.style.display = 'block';
+            progressFill.style.width = '0%';
+            uploadBtn.disabled = true;
+            
+            try {
+                for (let i = 0; i < selectedFiles.length; i++) {
+                    const file = selectedFiles[i];
+                    
+                    // 更新進度
+                    progressFill.style.width = `${((i) / selectedFiles.length) * 100}%`;
+                    
+                    // 建立 FormData
+                    const formData = new FormData();
+                    formData.append('file', file);
+                    
+                    // 上傳檔案
+                    const response = await fetch('/upload', {
+                        method: 'POST',
+                        body: formData
+                    });
+                    
+                    if (!response.ok) {
+                        throw new Error(`上傳失敗: ${response.status}`);
+                    }
+                    
+                    const result = await response.json();
+                    
+                    // 顯示成功訊息
+                    if (i === selectedFiles.length - 1) {
+                        progressFill.style.width = '100%';
+                        showStatus(`成功上傳 ${selectedFiles.length} 個檔案`, 'success');
+                        
+                        // 顯示最後一個檔案的連結
+                        const baseUrl = window.location.origin;
+                        const fileLink = `${baseUrl}/uploads/${result.filename}`;
+                        fileUrl.textContent = fileLink;
+                        fileUrl.innerHTML = `<a href="${fileLink}" target="_blank">${fileLink}</a>`;
+                        urlDisplay.classList.add('show');
+                        
+                        // 更新已上傳檔案列表
+                        updateUploadedFilesList();
+                    }
+                }
+            } catch (error) {
+                showStatus(`上傳失敗: ${error.message}`, 'error');
+                console.error('Upload error:', error);
+            } finally {
+                setTimeout(() => {
+                    progressBar.style.display = 'none';
+                    uploadBtn.disabled = false;
+                }, 2000);
+            }
+        });
+        
+        // 顯示狀態訊息
+        function showStatus(message, type) {
+            statusMessage.textContent = message;
+            statusMessage.className = 'status ' + type;
+            statusMessage.style.display = 'block';
+            
+            // 5秒後自動隱藏
+            setTimeout(() => {
+                statusMessage.style.display = 'none';
+            }, 5000);
+        }
+        
+        // 複製連結
+        window.copyUrl = function() {
+            const url = document.getElementById('fileUrl').textContent;
+            navigator.clipboard.writeText(url).then(() => {
+                alert('連結已複製到剪貼簿！');
+            }).catch(err => {
+                console.error('複製失敗:', err);
+            });
+        };
+        
+        // 更新已上傳檔案列表
+        async function updateUploadedFilesList() {
+            // 這裡可以實作

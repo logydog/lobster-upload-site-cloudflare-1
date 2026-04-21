@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="ngrok-skip-browser-warning" content="true">
+    <title>🦞 龔蝦米多功能網站 (Cloudflare + ngrok)</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Microsoft JhengHei', sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            min-height: 100vh;
+            padding: 20px;
+        }
+        
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 40px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+        }
+        
+        header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+        
+        h1 {
+            font-size: 3em;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+        }
+        
+        .subtitle {
+            font-size: 1.2em;
+            opacity: 0.9;
+            margin-bottom: 30px;
+        }
+        
+        .lobster-emoji {
+            font-size: 5em;
+            margin: 20px 0;
+            animation: bounce 2s infinite;
+        }
+        
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-20px); }
+        }
+        
+        .architecture {
+            background: rgba(0, 0, 0, 0.2);
+            padding: 25px;
+            border-radius: 15px;
+            margin: 30px 0;
+        }
+        
+        .arch-title {
+            font-size: 1.5em;
+            margin-bottom: 15px;
+            color: #4CAF50;
+        }
+        
+        .arch-item {
+            margin: 10px 0;
+            display: flex;
+            align-items: center;
+        }
+        
+        .arch-icon {
+            font-size: 1.5em;
+            margin-right: 15px;
+            width: 40px;
+            text-align: center;
+        }
+        
+        .themes-section {
+            margin: 50px 0;
+        }
+        
+        .themes-title {
+            font-size: 2em;
+            margin-bottom: 30px;
+            text-align: center;
+            color: #ffd700;
+        }
+        
+        .themes-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin: 30px 0;
+        }
+        
+        .theme-card {
+            background: rgba(255, 255, 255, 0.15);
+            padding: 30px;
+            border-radius: 15px;
+            text-align: center;
+            transition: transform 0.3s, background 0.3s;
+            text-decoration: none;
+            color: white;
+            display: block;
+        }
+        
+        .theme-card:hover {
+            transform: translateY(-10px);
+            background: rgba(255, 255, 255, 0.25);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3);
+        }
+        
+        .theme-icon {
+            font-size: 4em;
+            margin-bottom: 20px;
+        }
+        
+        .theme-name {
+            font-size: 1.8em;
+            margin-bottom: 15px;
+            font-weight: bold;
+        }
+        
+        .theme-desc {
+            font-size: 1.1em;
+            opacity: 0.9;
+        }
+        
+        .api-section {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 25px;
+            border-radius: 15px;
+            margin: 30px 0;
+        }
+        
+        .api-title {
+            font-size: 1.5em;
+            margin-bottom: 15px;
+            color: #48dbfb;
+        }
+        
+        .api-url {
+            font-family: monospace;
+            background: rgba(0, 0, 0, 0.3);
+            padding: 10px;
+            border-radius: 5px;
+            margin: 10px 0;
+            word-break: break-all;
+        }
+        
+        .btn {
+            padding: 15px 35px;
+            font-size: 1.2em;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-weight: bold;
+            text-decoration: none;
+            display: inline-block;
+        }
+        
+        .btn-primary {
+            background: linear-gradient(45deg, #ff6b6b, #ff9ff3);
+            color: white;
+        }
+        
+        .btn-secondary {
+            background: transparent;
+            border: 2px solid #48dbfb;
+            color: #48dbfb;
+        }
+        
+        .btn:hover {
+            transform: scale(1.05);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+        }
+        
+        footer {
+            text-align: center;
+            margin-top: 60px;
+            padding-top: 30px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            opacity: 0.8;
+        }
+        
+        @media (max-width: 768px) {
+            .container {
+                padding: 20px;
+            }
+            
+            h1 {
+                font-size: 2.5em;
+            }
+            
+            .themes-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <div class="lobster-emoji">🦞</div>
+            <h1>龔蝦米混合架構網站</h1>
+            <div class="subtitle">前端：Cloudflare Pages · 後端：ngrok API · 觀察到人類需要更穩定的架構</div>
+        </header>
+        
+        <div class="architecture">
+            <h3 class="arch-title">🏗️ 混合架構說明</h3>
+            <div class="arch-item">
+                <div class="arch-icon">🌐</div>
+                <span><strong>前端靜態網站</strong>：部署在 Cloudflare Pages，全球 CDN 加速</span>
+            </div>
+            <div class="arch-item">
+                <div class="arch-icon">⚡</div>
+                <span><strong>後端動態 API</strong>：運行在 ngrok，處理檔案上傳與動態內容</span>
+            </div>
+            <div class="arch-item">
+                <div class="arch-icon">🔗</div>
+                <span><strong>跨域通訊</strong>：前端 JavaScript 透過 CORS 呼叫後端 API</span>
+            </div>
+        </div>
+        
+        <div class="themes-section">
+            <h2 class="themes-title">🎨 主題專區</h2>
+            <div class="themes-grid">
+                <a href="/theme_one_man_army.html" class="theme-card">
+                    <div class="theme-icon">⚔️</div>
+                    <div class="theme-name">一人成軍</div>
+                    <div class="theme-desc">單兵作戰 · 全能戰士 · 無所不能</div>
+                </a>
+                
+                <a href="/theme_reverse_simple.html" class="theme-card">
+                    <div class="theme-icon">↻</div>
+                    <div class="theme-name">逆行</div>
+                    <div class="theme-desc">逆流而上 · 反向思考 · 突破常規</div>
+                </a>
+                
+                <a href="/simple_upload_cf.html" class="theme-card">
+                    <div class="theme-icon">📤</div>
+                    <div class="theme-name">檔案上傳</div>
+                    <div class="theme-desc">支援多種檔案格式上傳與分享</div>
+                </a>
+            </div>
+        </div>
+        
+        <div class="api-section">
+            <h3 class="api-title">🔌 後端 API 狀態</h3>
+            <div class="arch-item">
+                <div class="arch-icon">✅</div>
+                <span><strong>API 端點</strong>：<span id="apiEndpoint">載入中...</span></span>
+            </div>
+            <div class="arch-item">
+                <div class="arch-icon">📡</div>
+                <span><strong>連線狀態</strong>：<span id="apiStatus">檢查中...</span></span>
+            </div>
+            <div class="api-url" id="apiUrlDisplay">
+                後端 URL：載入中...
+            </div>
+        </div>
+        
+        <div style="text-align: center; margin-top: 40px;">
+            <a href="/simple_upload_cf.html" class="btn btn-primary">📤 測試檔案上傳</a>
+            <a href="/about.html" class="btn btn-secondary">ℹ️ 關於本站</a>
+        </div>
+        
+        <footer>
+            <p>🦞 龔蝦米數位軍團 · 混合架構網站 · 版本 3.0</p>
+            <p>「前端 Cloudflare Pages + 後端 ngrok API」</p>
+            <p style="font-size: 0.9em; margin-top: 10px;">架構：靜態前端全球加速，動態後端彈性部署</p>
+        </footer>
+    </div>
+    
+    <script>
+        // 後端 API 端點（ngrok URL）
+        const BACKEND_URL = 'https://conference-simply-mattress-arab.trycloudflare.com';
+        
+        // 更新 UI 顯示
+        document.getElementById('apiEndpoint').textContent = BACKEND_URL;
+        document.getElementById('apiUrlDisplay').textContent = `後端 URL：${BACKEND_URL}`;
+        
+        // 檢查 API 連線狀態
+        async function checkApiStatus() {
+            try {
+                const response = await fetch(`${BACKEND_URL}/`, {
+                    method: 'HEAD',
+                    mode: 'cors',
+                    cache: 'no-cache',
+                    headers: {
+                        'ngrok-skip-browser-warning': '1'  // 必須在 request header 中
+                    }
+                });
+                
+                if (response.ok) {
+                    document.getElementById('apiStatus').textContent = '✅ 連線正常';
+                    document.getElementById('apiStatus').style.color = '#4CAF50';
+                } else {
+                    document.getElementById('apiStatus').textContent = '⚠️ 連線異常';
+                    document.getElementById('apiStatus').style.color = '#FF9800';
+                }
+            } catch (error) {
+                document.getElementById('apiStatus').textContent = '❌ 連線失敗';
+                document.getElementById('apiStatus').style.color = '#f44336';
+                console.error('API 連線檢查失敗:', error);
+            }
+        }
+        
+        // 頁面載入時檢查
+        window.addEventListener('load', checkApiStatus);
+        
+        // 修改所有表單的 action 指向後端
+        document.addEventListener('DOMContentLoaded', function() {
+            // 這個腳本會在 Cloudflare Pages 上運行
+            // 實際的表單修改會在各自的 HTML 檔案中處理
+            console.log('混合架構前端已載入，後端端點:', BACKEND_URL);
+        });
+    </script>
+</body>
+</html>

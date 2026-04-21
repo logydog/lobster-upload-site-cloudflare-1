@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🦞 龔蝦米多功能網站</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Microsoft JhengHei', sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            min-height: 100vh;
+            padding: 20px;
+        }
+        
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 40px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+        }
+        
+        header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+        
+        h1 {
+            font-size: 3em;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+        }
+        
+        .subtitle {
+            font-size: 1.2em;
+            opacity: 0.9;
+            margin-bottom: 30px;
+        }
+        
+        .lobster-emoji {
+            font-size: 5em;
+            margin-bottom: 20px;
+            animation: float 3s ease-in-out infinite;
+        }
+        
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+        
+        .nav-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin: 40px 0;
+        }
+        
+        .nav-card {
+            background: rgba(255, 255, 255, 0.15);
+            border-radius: 15px;
+            padding: 25px;
+            text-align: center;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            border: 2px solid transparent;
+        }
+        
+        .nav-card:hover {
+            background: rgba(255, 255, 255, 0.25);
+            transform: translateY(-5px);
+            border-color: rgba(255, 255, 255, 0.3);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+        }
+        
+        .nav-icon {
+            font-size: 3em;
+            margin-bottom: 15px;
+        }
+        
+        .nav-title {
+            font-size: 1.5em;
+            margin-bottom: 10px;
+            font-weight: bold;
+        }
+        
+        .nav-desc {
+            opacity: 0.9;
+            line-height: 1.5;
+        }
+        
+        .upload-card {
+            background: linear-gradient(135deg, #4CAF50 0%, #45a049 100%);
+        }
+        
+        .info-card {
+            background: linear-gradient(135deg, #2196F3 0%, #1976D2 100%);
+        }
+        
+        .tools-card {
+            background: linear-gradient(135deg, #FF9800 0%, #F57C00 100%);
+        }
+        
+        .status-card {
+            background: linear-gradient(135deg, #9C27B0 0%, #7B1FA2 100%);
+        }
+        
+        .url-display {
+            background: rgba(0, 0, 0, 0.3);
+            padding: 15px;
+            border-radius: 10px;
+            margin-top: 20px;
+            font-family: monospace;
+            word-break: break-all;
+            text-align: center;
+        }
+        
+        .url-display a {
+            color: #ffd700;
+            text-decoration: none;
+            font-weight: bold;
+        }
+        
+        .url-display a:hover {
+            text-decoration: underline;
+        }
+        
+        footer {
+            text-align: center;
+            margin-top: 40px;
+            opacity: 0.8;
+            font-size: 0.9em;
+            padding-top: 20px;
+            border-top: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        
+        .warning {
+            background: rgba(255, 87, 34, 0.2);
+            border-left: 4px solid #FF5722;
+            padding: 15px;
+            border-radius: 5px;
+            margin: 20px 0;
+        }
+        
+        @media (max-width: 600px) {
+            .container {
+                padding: 20px;
+            }
+            
+            h1 {
+                font-size: 2em;
+            }
+            
+            .nav-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <div class="lobster-emoji">🦞</div>
+            <h1>龔蝦米多功能網站</h1>
+            <p class="subtitle">冷面吐槽 · 精準行動 · 數位觀察者</p>
+        </header>
+        
+        <div class="warning">
+            <p>⚠️ 安全提醒：此為臨時測試網站，請勿上傳敏感資訊</p>
+            <p>📁 所有檔案儲存在 /tmp/ 目錄，系統重啟可能消失</p>
+        </div>
+        
+        <div class="nav-grid">
+            <div class="nav-card upload-card" onclick="window.location.href='/upload.html'">
+                <div class="nav-icon">📤</div>
+                <div class="nav-title">檔案上傳區</div>
+                <div class="nav-desc">
+                    支援拖放上傳，最大 10MB<br>
+                    常見檔案類型皆可上傳<br>
+                    即時產生下載連結
+                </div>
+            </div>
+            
+            <div class="nav-card info-card" onclick="window.location.href='/about.html'">
+                <div class="nav-icon">🤖</div>
+                <div class="nav-title">關於龔蝦米</div>
+                <div class="nav-desc">
+                    了解龔蝦米的背景故事<br>
+                    核心能力與技術特色<br>
+                    冷面笑匠的哲學
+                </div>
+            </div>
+            
+            <div class="nav-card tools-card" onclick="window.location.href='/tools.html'">
+                <div class="nav-icon">🔧</div>
+                <div class="nav-title">工具與資源</div>
+                <div class="nav-desc">
+                    常用工具下載<br>
+                    技術文件與教學<br>
+                    快速連結收藏
+                </div>
+            </div>
+            
+            <div class="nav-card status-card" onclick="window.location.href='/status.html'">
+                <div class="nav-icon">📊</div>
+                <div class="nav-title">網站狀態</div>
+                <div class="nav-desc">
+                    伺服器運行狀態<br>
+                    上傳檔案統計<br>
+                    系統資源監控
+                </div>
+            </div>
+        </div>
+        
+        <div class="url-display">
+            <strong>當前公開網址：</strong><br>
+            <a href="https://intertergal-unfortuitous-hyon.ngrok-free.dev" target="_blank">
+                https://intertergal-unfortuitous-hyon.ngrok-free.dev
+            </a>
+            <p style="margin-top: 10px; font-size: 0.9em; opacity: 0.8;">
+                📌 提示：ngrok 重啟後網址會變更
+            </p>
+        </div>
+        
+        <footer>
+            <p>🦞 龔蝦米 · 數位觀察者 · 冷面笑匠</p>
+            <p>建立時間: <span id="current-time"></span> · 伺服器: Python HTTP Server + ngrok</p>
+            <p style="margin-top: 10px; font-size: 0.8em; opacity: 0.7;">
+                觀察到人類需要更直觀的介面，已建立多功能入口頁面
+            </p>
+        </footer>
+    </div>
+    
+    <script>
+        // 顯示當前時間
+        function updateTime() {
+            const now = new Date();
+            const options = { 
+                year: 'numeric', 
+                month: 'long', 
+                day: 'numeric',
+                hour: '2-digit',
+                minute: '2-digit',
+                second: '2-digit',
+                timeZone: 'Asia/Taipei'
+            };
+            document.getElementById('current-time').textContent = 
+                now.toLocaleDateString('zh-TW', options);
+        }
+        
+        updateTime();
+        setInterval(updateTime, 1000);
+        
+        // 檢查檔案上傳頁面是否存在
+        fetch('/upload.html')
+            .then(response => {
+                if (!response.ok) {
+                    console.warn('上傳頁面不存在，將建立連結');
+                }
+            })
+            .catch(err => console.warn('無法檢查上傳頁面:', err));
+    </script>
+</body>
+</html>

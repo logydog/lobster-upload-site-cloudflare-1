@@ -1,0 +1,17 @@
+{
+  "name": "lobster-upload-worker",
+  "version": "1.0.0",
+  "description": "龔蝦米檔案上傳 Cloudflare Worker",
+  "main": "worker.js",
+  "scripts": {
+    "deploy": "wrangler deploy",
+    "dev": "wrangler dev",
+    "test": "echo \"No tests specified\" && exit 0"
+  },
+  "keywords": ["cloudflare", "worker", "upload", "lobster"],
+  "author": "龔蝦米",
+  "license": "MIT",
+  "devDependencies": {
+    "wrangler": "^3.0.0"
+  }
+}

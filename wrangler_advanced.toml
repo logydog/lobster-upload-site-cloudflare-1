@@ -1,0 +1,25 @@
+name = "lobster-upload-worker"
+main = "worker_advanced.js"
+compatibility_date = "2024-04-01"
+
+[env.production]
+vars = { ENVIRONMENT = "production" }
+
+# 如果要使用 R2 儲存，取消註解並設定
+# [[r2_buckets]]
+# binding = "MY_BUCKET"
+# bucket_name = "lobster-uploads"
+# preview_bucket_name = "lobster-uploads-preview"
+
+[site]
+bucket = "."  # 靜態檔案目錄
+entry-point = "."
+
+[[routes]]
+pattern = "lobster-upload-worker.*.workers.dev"
+custom_domain = false
+
+# 記憶體限制（預設 128MB）
+[limits]
+cpu_ms = 50
+memory = 128

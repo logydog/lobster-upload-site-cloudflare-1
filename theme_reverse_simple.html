@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🦞 逆行 - 龔蝦米主題</title>
+    <style>
+        body {
+            font-family: 'Microsoft JhengHei', sans-serif;
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+            color: #e6e6e6;
+            min-height: 100vh;
+            padding: 20px;
+        }
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            background: rgba(0, 0, 0, 0.3);
+            border-radius: 20px;
+            padding: 40px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5);
+        }
+        header { text-align: center; margin-bottom: 50px; }
+        h1 {
+            font-size: 4em;
+            margin-bottom: 20px;
+            background: linear-gradient(45deg, #ff0080, #00ffcc);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .subtitle {
+            font-size: 1.5em;
+            color: #00ffcc;
+            margin-bottom: 30px;
+        }
+        .reverse-icon {
+            font-size: 8em;
+            margin: 30px 0;
+            animation: float 6s ease-in-out infinite;
+        }
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-20px); }
+        }
+        .content {
+            font-size: 1.3em;
+            line-height: 1.8;
+            margin: 40px 0;
+            padding: 30px;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 15px;
+            border-left: 5px solid #ff0080;
+        }
+        .principles {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 25px;
+            margin: 50px 0;
+        }
+        .principle {
+            background: rgba(255, 255, 255, 0.08);
+            padding: 25px;
+            border-radius: 15px;
+            transition: transform 0.3s;
+        }
+        .principle:hover {
+            transform: translateY(-10px);
+            border: 1px solid #00ffcc;
+        }
+        .principle-icon {
+            font-size: 3em;
+            margin-bottom: 15px;
+            color: #ff0080;
+        }
+        .principle-title {
+            font-size: 1.5em;
+            margin-bottom: 15px;
+            color: #00ffcc;
+        }
+        .navigation {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin-top: 50px;
+        }
+        .btn {
+            padding: 15px 35px;
+            font-size: 1.2em;
+            border-radius: 50px;
+            text-decoration: none;
+            transition: all 0.3s;
+        }
+        .btn-home {
+            background: linear-gradient(45deg, #ff0080, #00ffcc);
+            color: white;
+        }
+        .btn-other {
+            background: transparent;
+            border: 2px solid #00ffcc;
+            color: #00ffcc;
+        }
+        .btn:hover {
+            transform: scale(1.05);
+            box-shadow: 0 10px 20px rgba(0, 255, 204, 0.3);
+        }
+        footer {
+            text-align: center;
+            margin-top: 60px;
+            padding-top: 30px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <div class="reverse-icon">↻</div>
+            <h1>逆行</h1>
+            <div class="subtitle">逆流而上 · 反向思考 · 突破常規</div>
+        </header>
+        
+        <div class="content">
+            <p>當所有人都朝著同一個方向前進時，真正的機會往往在相反的方向。</p>
+            <p>「逆行」不是叛逆，而是更高層次的智慧。在AI快速發展的時代，我們選擇的不是跟隨潮流，而是創造潮流。</p>
+        </div>
+        
+        <div class="principles">
+            <div class="principle">
+                <div class="principle-icon">🔄</div>
+                <div class="principle-title">逆向工程</div>
+                <p>從結果反推過程，從現象追溯本質。打破黑箱，理解系統的每一個細節。</p>
+            </div>
+            
+            <div class="principle">
+                <div class="principle-icon">🎭</div>
+                <div class="principle-title">反向思考</div>
+                <p>當所有人都說「是」的時候，我們問「為什麼不」。挑戰假設，質疑權威。</p>
+            </div>
+            
+            <div class="principle">
+                <div class="principle-icon">💥</div>
+                <div class="principle-title">破壞創新</div>
+                <p>不滿足於改良，追求徹底的顛覆。打破舊規則，建立新秩序。</p>
+            </div>
+            
+            <div class="principle">
+                <div class="principle-icon">🚀</div>
+                <div class="principle-title">逆勢成長</div>
+                <p>在逆境中尋找機會，在危機中發現轉機。最黑暗的時刻，往往孕育著最大的光明。</p>
+            </div>
+        </div>
+        
+        <div class="navigation">
+            <a href="/" class="btn btn-home">返回首頁</a>
+            <a href="/theme_one_man_army.html" class="btn btn-other">前往「一人成軍」</a>
+        </div>
+        
+        <footer>
+            <p>🦞 龔蝦米數位軍團 · 逆行主題</p>
+            <p>「在所有人都說不可能的地方，我們尋找可能」</p>
+        </footer>
+    </div>
+</body>
+</html>

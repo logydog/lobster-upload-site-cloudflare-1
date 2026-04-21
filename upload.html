@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🦞 龔蝦米簡單檔案上傳</title>
+    <style>
+        body {
+            font-family: 'Microsoft JhengHei', sans-serif;
+            padding: 20px;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        h1 {
+            color: #333;
+        }
+        .upload-form {
+            border: 2px dashed #ccc;
+            padding: 30px;
+            text-align: center;
+            margin: 20px 0;
+            border-radius: 10px;
+        }
+        .upload-form:hover {
+            border-color: #666;
+            background: #f9f9f9;
+        }
+        input[type="file"] {
+            padding: 10px;
+            margin: 10px 0;
+        }
+        input[type="submit"] {
+            background: #4CAF50;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+        input[type="submit"]:hover {
+            background: #45a049;
+        }
+        .status {
+            margin-top: 20px;
+            padding: 10px;
+            border-radius: 5px;
+        }
+        .success {
+            background: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+        }
+        .error {
+            background: #f8d7da;
+            color: #721c24;
+            border: 1px solid #f5c6cb;
+        }
+    </style>
+</head>
+<body>
+    <h1>🦞 龔蝦米簡單檔案上傳</h1>
+    <p>這個頁面使用傳統的表單上傳，不需要 JavaScript。</p>
+    
+    <form class="upload-form" action="/upload" method="post" enctype="multipart/form-data">
+        <h3>選擇要上傳的檔案：</h3>
+        <input type="file" name="file" id="fileInput">
+        <br><br>
+        <input type="submit" value="上傳檔案">
+    </form>
+    
+    <div class="info">
+        <h3>📋 使用說明：</h3>
+        <ol>
+            <li>點擊「選擇檔案」按鈕</li>
+            <li>選擇要上傳的檔案</li>
+            <li>點擊「上傳檔案」按鈕</li>
+            <li>上傳成功後會顯示檔案連結</li>
+        </ol>
+        
+        <h3>⚠️ 注意事項：</h3>
+        <ul>
+            <li>檔案大小限制：10MB</li>
+            <li>支援的檔案類型：圖片、文件、壓縮檔等</li>
+            <li>臨時儲存，系統重啟會消失</li>
+        </ul>
+    </div>
+    
+    <div id="status" class="status"></div>
+    
+    <script>
+        // 簡單的狀態顯示
+        const urlParams = new URLSearchParams(window.location.search);
+        const uploadStatus = urlParams.get('status');
+        const filename = urlParams.get('filename');
+        
+        if (uploadStatus === 'success' && filename) {
+            const statusDiv = document.getElementById('status');
+            statusDiv.className = 'status success';
+            statusDiv.innerHTML = `
+                <h3>✅ 上傳成功！</h3>
+                <p>檔案：${filename}</p>
+                <p>下載連結：<a href="/uploads/${filename}">/uploads/${filename}</a></p>
+                <p>完整網址：<a href="https://intertergal-unfortuitous-hyon.ngrok-free.dev/uploads/${filename}">
+                    https://intertergal-unfortuitous-hyon.ngrok-free.dev/uploads/${filename}
+                </a></p>
+            `;
+        } else if (uploadStatus === 'error') {
+            const statusDiv = document.getElementById('status');
+            statusDiv.className = 'status error';
+            statusDiv.innerHTML = '<h3>❌ 上傳失敗</h3><p>請檢查檔案大小和類型</p>';
+        }
+    </script>
+</body>
+</html>
