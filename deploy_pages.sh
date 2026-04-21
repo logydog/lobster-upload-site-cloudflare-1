@@ -1,0 +1,58 @@
+#!/bin/bash
+# 🦞 Cloudflare Pages 部署腳本
+
+echo "🦞 部署到 Cloudflare Pages"
+echo "================================"
+
+# 檢查必要工具
+echo "🔍 檢查必要工具..."
+which curl > /dev/null || { echo "❌ 需要 curl"; exit 1; }
+
+echo ""
+echo "📋 部署步驟："
+echo "================================"
+echo "1. 前往 Cloudflare Dashboard"
+echo "   https://dash.cloudflare.com/"
+echo ""
+echo "2. 選擇 'Workers & Pages'"
+echo ""
+echo "3. 點擊 'Create application' → 'Pages'"
+echo ""
+echo "4. 選擇 'Connect to Git'"
+echo ""
+echo "5. 授權 Cloudflare 存取 GitHub"
+echo ""
+echo "6. 選擇 repository:"
+echo "   logydog/lobster-upload-site-cloudflare-1"
+echo ""
+echo "7. 設定部署選項："
+echo "   - 專案名稱: lobster-site-10m (或新名稱)"
+echo "   - 生產分支: main"
+echo "   - 建置指令: (留空)"
+echo "   - 輸出目錄: / (根目錄)"
+echo ""
+echo "8. 點擊 'Save and Deploy'"
+echo ""
+echo "9. 等待部署完成"
+echo ""
+echo "10. 取得部署網址"
+echo "   例如: https://lobster-site-10m.pages.dev"
+echo "================================"
+
+echo ""
+echo "🔗 重要連結："
+echo "GitHub repository:"
+echo "  https://github.com/logydog/lobster-upload-site-cloudflare-1"
+echo ""
+echo "Cloudflare Dashboard:"
+echo "  https://dash.cloudflare.com/"
+echo ""
+echo "後端狀態："
+echo "  https://conference-simply-mattress-arab.trycloudflare.com/"
+echo ""
+echo "📊 當前 Git 狀態："
+cd "$(dirname "$0")"
+git status
+
+echo ""
+echo "✅ 準備完成！請按照上述步驟操作。"
