@@ -105,31 +105,34 @@ class UploadHandler(BaseHTTPRequestHandler):
                 shutil.copyfileobj(f, self.wfile)
         
         # 上傳檔案下載
-        elif parsed_path.path.startswith('/uploads/'):
-            filename = parsed_path.path[8:]  # 移除 '/uploads/'
-            filepath = os.path.join(UPLOAD_DIR, filename)
-            
-            if os.path.exists(filepath) and os.path.isfile(filepath):
+        def do_GET(self):
+            parsed_path = urlparse(self.path)
+        
+            # ⭐ API：健康檢查
+            if parsed_path.path == '/health':
                 self.send_response(200)
-                
-                mime_type, _ = mimetypes.guess_type(filepath)
-                # ⭐ 修正 encoding
-                if mime_type and mime_type.startswith('text'):
-                    self.send_header('Content-type', f'{mime_type}; charset=utf-8')
-                elif mime_type == 'application/json':
-                    self.send_header('Content-type', 'application/json; charset=utf-8')
-                else:
-                    self.send_header('Content-type', mime_type or 'application/octet-stream')
-                self.send_header('Content-Disposition', f'attachment; filename="{filename}"')
+                self.send_header('Content-type', 'text/plain')
                 self.end_headers()
-                
-                with open(filepath, 'rb') as f:
-                    shutil.copyfileobj(f, self.wfile)
+                self.wfile.write(b'OK')
+                return
+        
+            # ⭐ 靜態檔案
+            if parsed_path.path == '/':
+                filepath = 'index.html'
+            else:
+                filepath = parsed_path.path[1:] or 'index.html'
+        
+            full_filepath = os.path.join(BASE_DIR, filepath)
+        
+            if os.path.exists(full_filepath) and os.path.isfile(full_filepath):
+                self.send_response(200)
+                self.send_header('Content-type', 'text/html; charset=utf-8')
+                self.end_headers()
+        
+                with open(full_filepath, 'rb') as f:
+                    self.wfile.write(f.read())
             else:
                 self.send_error(404, "File not found")
-        
-        else:
-            self.send_error(404, "File not found")
     
     def do_POST(self):
         """處理 POST 請求（檔案上傳）"""
