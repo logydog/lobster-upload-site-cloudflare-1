@@ -145,7 +145,7 @@
     
     <script>
         // 後端 API 端點
-        const BACKEND_URL = 'https://conference-simply-mattress-arab.trycloudflare.com';
+        const BACKEND_URL = 'https://backing-harvard-modify-dozens.trycloudflare.com';
         
         // 顯示後端 URL
         document.getElementById('backendUrl').textContent = BACKEND_URL;
@@ -224,20 +224,29 @@
         
         // 檢查後端連線狀態
         async function checkBackend() {
+            const statusDiv = document.getElementById('status');
+        
             try {
                 const response = await fetch(`${BACKEND_URL}/health`, {
-                    method: 'HEAD',
-                    mode: 'cors',
-                    headers: {
-                        'ngrok-skip-browser-warning': '1'
-                    }
+                    method: 'GET',
+                    mode: 'cors'
                 });
-                console.log('後端連線狀態:', response.status);
+        
+                if (response.ok) {
+                    statusDiv.className = 'status success';
+                    statusDiv.innerHTML = '<h3>✅ API 正常</h3>';
+                } else {
+                    statusDiv.className = 'status error';
+                    statusDiv.innerHTML = '<h3>❌ API 異常</h3>';
+                }
+        
             } catch (error) {
-                console.warn('後端連線檢查失敗:', error);
+                statusDiv.className = 'status error';
+                statusDiv.innerHTML = '<h3>❌ 無法連線後端</h3>';
+                console.warn(error);
             }
         }
-        
+
         // 頁面載入時初始化
         window.addEventListener('load', function() {
             // 檢查後端連線
